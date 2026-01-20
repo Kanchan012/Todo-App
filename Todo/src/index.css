@@ -1,32 +1,29 @@
+/* Reset */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
 }
 
 body {
-  background-color: #fefefe;
-  color: #222;
-  transition: background-color 0.3s, color 0.3s;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  transition: background-color 0.3s;
 }
 
-[data-theme='dark'] {
-  background-color: #121212;
-  color: #eee;
+/* Dark theme */
+[data-theme="dark"] body {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
 }
 
+/* Navbar */
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background-color: #fdd57e;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-[data-theme='dark'] nav {
-  background-color: #1f1f1f;
+  padding: 1rem;
+  background-color: #edc057;
 }
 
 nav h1 {
@@ -34,138 +31,52 @@ nav h1 {
   font-weight: bold;
 }
 
-nav .nav-links {
-  display: flex;
-  gap: 1.5rem;
-}
-
-nav a {
+.nav-links a {
+  margin-right: 1rem;
   text-decoration: none;
-  color: inherit;
-  font-weight: 500;
-  transition: color 0.2s, text-decoration 0.2s;
+  color: black;
 }
 
-nav a:hover {
-  text-decoration: underline;
-}
-
-nav a.active {
+.nav-links a.active {
   font-weight: bold;
   text-decoration: underline;
 }
 
-nav button {
-  margin-left: 1rem;
-  padding: 0.4rem 0.8rem;
-  border: none;
-  border-radius: 6px;
-  background-color: #ccc;
+.nav-links button {
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s;
 }
 
-nav button:hover {
-  background-color: #bbb;
-  transform: scale(1.05);
-}
-
-[data-theme='dark'] nav button {
-  background-color: #333;
-  color: #fff;
-}
-
-[data-theme='dark'] nav button:hover {
-  background-color: #444;
-}
-
-
+/* TodoForm */
 .todo-form {
-  max-width: 600px;
-  margin: 1rem auto;
-  padding: 1rem 1.5rem;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-[data-theme='dark'] .todo-form {
-  background-color: #1e1e1e;
-  color: #eee;
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem;
 }
 
 .todo-form input,
-.todo-form select {
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-[data-theme='dark'] .todo-form input,
-[data-theme='dark'] .todo-form select {
-  background-color: #2b2b2b;
-  border: 1px solid #555;
-  color: #eee;
-}
-
+.todo-form select,
 .todo-form button {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 6px;
-  background-color: #fdd57e;
-  cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-.todo-form button:hover {
-  background-color: #fccc57;
-  transform: scale(1.05);
-}
-
-[data-theme='dark'] .todo-form button {
-  background-color: #333;
-  color: #fff;
-}
-
-[data-theme='dark'] .todo-form button:hover {
-  background-color: #444;
-}
-
-
+/* Todo List */
 .todo-list {
   max-width: 600px;
   margin: 1rem auto;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.5rem;
 }
 
 .todo-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem;
+  border-radius: 5px;
   background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.todo-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-[data-theme='dark'] .todo-item {
-  background-color: #1f1f1f;
-  color: #eee;
-}
-
-.todo-item .title {
-  flex: 1;
-  font-size: 1rem;
+  align-items: center;
 }
 
 .todo-item.completed .title {
@@ -173,37 +84,23 @@ nav button:hover {
   opacity: 0.6;
 }
 
-.todo-item .priority {
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
 .priority-low {
-  background-color: #c8f0c8;
-  color: #2d7a2d;
+  color: green;
 }
 
 .priority-medium {
-  background-color: #fce8b2;
-  color: #9a6b00;
+  color: orange;
 }
 
 .priority-high {
-  background-color: #f6b2b2;
-  color: #a30000;
+  color: red;
 }
 
 .todo-item button {
   margin-left: 0.5rem;
-  padding: 0.3rem 0.6rem;
-  border: none;
-  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
+
 
 .todo-item button.delete-btn {
   background-color: #f88;

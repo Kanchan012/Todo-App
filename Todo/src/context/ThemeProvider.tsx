@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { ThemeContext, type Theme } from "../context/ThemeContext";
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {

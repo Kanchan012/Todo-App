@@ -8,9 +8,7 @@ export interface TodoContextType {
   deleteTodo: (id: number) => void;
 }
 
-export const TodoContext = createContext<TodoContextType | undefined>(
-  undefined
-);
+export const TodoContext = createContext<TodoContextType | undefined>(undefined);
 
 export function useTodos() {
   const ctx = useContext(TodoContext);
