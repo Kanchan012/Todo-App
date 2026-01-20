@@ -33,9 +33,17 @@ export function TodoProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const updateTodo = (id: number, title: string, priority: Priority) => {
+    setTodos(prev =>
+      prev.map(t =>
+        t.id === id ? { ...t, title, priority } : t
+      )
+    );
+  };
+
   return (
     <TodoContext.Provider
-      value={{ todos, addTodo, toggleTodo, deleteTodo }}
+      value={{ todos, addTodo, toggleTodo, deleteTodo, updateTodo }}
     >
       {children}
     </TodoContext.Provider>

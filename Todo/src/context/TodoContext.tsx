@@ -6,6 +6,7 @@ export interface TodoContextType {
   addTodo: (title: string, priority: Priority) => void;
   toggleTodo: (id: number) => void;
   deleteTodo: (id: number) => void;
+  updateTodo: (id: number, title: string, priority: Priority) => void;
 }
 
 export const TodoContext = createContext<TodoContextType | undefined>(undefined);
