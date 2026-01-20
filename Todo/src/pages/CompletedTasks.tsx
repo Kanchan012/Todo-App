@@ -6,7 +6,7 @@ const CompletedTasks: React.FC = () => {
   const completed = todos.filter(t => t.completed);
 
   return (
-    <div className="p-4">
+    <div className="todo-list">
       {completed.length === 0 ? (
         <p>No completed tasks</p>
       ) : (

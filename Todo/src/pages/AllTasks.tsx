@@ -4,7 +4,7 @@ import TodoItem from "../components/TodoItem";
 const AllTasks: React.FC = () =>  {
   const { todos } = useTodos();
   return (
-    <div className="p-4">
+    <div className="todo-list">
       {todos.length === 0 ? (
         <p>No tasks found</p>
       ) : (

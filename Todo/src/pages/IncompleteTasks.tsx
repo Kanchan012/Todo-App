@@ -6,7 +6,7 @@ const IncompleteTasks: React.FC = () => {
   const incomplete = todos.filter(t => !t.completed);
 
   return (
-    <div className="p-4">
+    <div className="todo-list">
       {incomplete.length === 0 ? (
         <p>No incomplete tasks</p>
       ) : (
