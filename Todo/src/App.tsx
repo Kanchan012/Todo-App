@@ -1,10 +1,10 @@
 import TodoForm from "./components/TodoForm";
+import { TodoProvider } from "./context/TodoContext";
 
 export default function App() {
   return (
-    <div className="app">
-      <h1>Todo List</h1>
+    <TodoProvider>
       <TodoForm />
-    </div>
+    </TodoProvider>
   );
 }
