@@ -1,9 +1,9 @@
 import { useTodos } from "../context/TodoContext";
 import TodoItem from "../components/TodoItem";
 
-export default function IncompleteTasks() {
+const IncompleteTasks: React.FC = () => {
   const { todos } = useTodos();
-  const incomplete = todos.filter((t) => !t.completed);
+  const incomplete = todos.filter(t => !t.completed);
 
   return (
     <div className="p-4">
@@ -15,3 +15,4 @@ export default function IncompleteTasks() {
     </div>
   );
 }
+export default IncompleteTasks;
