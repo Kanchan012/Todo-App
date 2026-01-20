@@ -1,38 +1,38 @@
+import React from "react";
 import { useTodos } from "../context/TodoContext";
 import type { Todo } from "../types/todo";
 
-export default function TodoItem({ todo }: { todo: Todo }) {
+interface TodoItemProps {
+  todo: Todo;
+}
+
+const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const { toggleTodo, deleteTodo } = useTodos();
 
   return (
-   <div className="todo-item">
-  <div className="flex items-center gap-2">
-    <input
-      type="checkbox"
-      checked={todo.completed}
-      onChange={() => toggleTodo(todo.id)}
-    />
-    <span className={todo.completed ? "line-through text-gray-400" : ""}>
-      {todo.title}
-    </span>
-    <span
-      className={`priority ${
-        todo.priority === "low"
-          ? "priority-low"
-          : todo.priority === "medium"
-          ? "priority-medium"
-          : "priority-high"
-      }`}
+    <div
+      className={`todo-item ${todo.completed ? "completed" : ""}`}
     >
-      {todo.priority}
-    </span>
-  </div>
-  <button
-    onClick={() => deleteTodo(todo.id)}
-    className="delete"
-  >
-    Delete
-  </button>
-</div>
+      <span className="title">{todo.title}</span>
+      <span className={`priority priority-${todo.priority}`}>
+        {todo.priority}
+      </span>
+      <div>
+        <button
+          className="toggle-btn"
+          onClick={() => toggleTodo(todo.id)}
+        >
+          {todo.completed ? "Undo" : "Done"}
+        </button>
+        <button
+          className="delete-btn"
+          onClick={() => deleteTodo(todo.id)}
+        >
+          Delete
+        </button>
+      </div>
+    </div>
   );
-}
+};
+
+export default TodoItem;
