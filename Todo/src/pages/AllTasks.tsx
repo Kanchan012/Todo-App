@@ -1,7 +1,7 @@
 import { useTodos } from "../context/TodoContext";
 import TodoItem from "../components/TodoItem";
 
-export default function AllTasks() {
+const AllTasks: React.FC = () =>  {
   const { todos } = useTodos();
   return (
     <div className="p-4">
@@ -13,3 +13,4 @@ export default function AllTasks() {
     </div>
   );
 }
+export default AllTasks;
