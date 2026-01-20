@@ -1,165 +1,296 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  min-height: 100vh;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-/* Todo Item Styling */
+/* ===== Todo Item Styling ===== */
 .todo-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem;
-  background: #f5f5f5;
-  border-radius: 8px;
-  margin-bottom: 0.5rem;
-  transition: all 0.2s ease;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.todo-item:hover {
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
+  transform: translateY(-2px);
 }
 
 .todo-item.completed {
-  opacity: 0.6;
+  opacity: 0.7;
+  background: #f8f9fa;
 }
 
 .todo-item.completed .title {
   text-decoration: line-through;
+  color: #999;
 }
 
+/* ===== Title Section ===== */
 .title {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
   flex: 1;
   text-align: left;
-  font-weight: 500;
 }
 
 .title input[type="checkbox"] {
   cursor: pointer;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
+  accent-color: #667eea;
+  transition: all 0.2s ease;
 }
 
+.title input[type="checkbox"]:hover {
+  transform: scale(1.1);
+}
+
+/* ===== Priority Colors ===== */
 .priority-high {
-  color: #dc3545;
-  font-weight: bold;
+  color: #ff6b6b;
+  font-weight: 600;
 }
 
 .priority-medium {
-  color: #ffc107;
+  color: #ffa500;
+  font-weight: 600;
 }
 
 .priority-low {
-  color: #28a745;
+  color: #51cf66;
+  font-weight: 600;
 }
 
-/* Button Styling */
+/* ===== Button Styling ===== */
 .btn-edit,
 .btn-delete,
 .btn-update,
 .btn-cancel {
-  padding: 0.5rem 1rem;
+  padding: 0.7rem 1.2rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .btn-edit {
-  background-color: #007bff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
 }
 
 .btn-edit:hover {
-  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
 .btn-delete {
-  background-color: #dc3545;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   color: white;
+  box-shadow: 0 2px 6px rgba(245, 87, 108, 0.3);
 }
 
 .btn-delete:hover {
-  background-color: #c82333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
 }
 
 .btn-update {
-  background-color: #28a745;
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
   color: white;
+  box-shadow: 0 2px 6px rgba(79, 172, 254, 0.3);
 }
 
 .btn-update:hover {
-  background-color: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4);
 }
 
 .btn-cancel {
-  background-color: #6c757d;
+  background: linear-gradient(135deg, #a8a8a8 0%, #6c757d 100%);
   color: white;
+  box-shadow: 0 2px 6px rgba(108, 117, 125, 0.3);
 }
 
 .btn-cancel:hover {
-  background-color: #5a6268;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.4);
 }
 
-/* Edit Form */
+/* ===== Edit Form ===== */
 .edit-form {
   display: flex;
   gap: 0.75rem;
   align-items: center;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .edit-form input,
 .edit-form select {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 0.9rem;
+  padding: 0.8rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background: white;
 }
 
 .edit-form input {
   flex: 1;
+  min-width: 200px;
 }
 
 .edit-form select {
-  min-width: 100px;
+  min-width: 120px;
+}
+
+.edit-form input:focus,
+.edit-form select:focus {
+  border-color: #667eea;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* ===== Dark Mode Support ===== */
+[data-theme="dark"] .todo-item {
+  background: #2a2a2a;
+  color: #f0f0f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .todo-item:hover {
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+}
+
+[data-theme="dark"] .todo-item.completed {
+  background: #1e1e1e;
+}
+
+[data-theme="dark"] .edit-form input,
+[data-theme="dark"] .edit-form select {
+  background: #1e1e1e;
+  color: #f0f0f0;
+  border-color: #444;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .todo-item {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .title {
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .todo-item > button {
+    flex: 1;
+    min-width: 80px;
+  }
+
+  .edit-form {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .edit-form input,
+  .edit-form select {
+    width: 100%;
+  }
+
+  .edit-form button {
+    width: 100%;
+  }
+
+  nav {
+    padding: 1rem;
+  }
+
+  nav h1 {
+    font-size: 1.5rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .todo-form {
+    flex-direction: column;
+    padding: 1.5rem 1rem;
+  }
+
+  .todo-form input,
+  .todo-form select,
+  .todo-form button {
+    width: 100%;
+  }
+}
+
+/* ===== Empty State ===== */
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: #999;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ===== Loading State ===== */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ===== Animation Classes ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
