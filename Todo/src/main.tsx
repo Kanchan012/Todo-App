@@ -8,9 +8,9 @@ import "./index.css";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider>
-      <TodoProvider>
-        <App />
-      </TodoProvider>
-    </ThemeProvider>
+  <TodoProvider>
+    <App />
+  </TodoProvider>
+</ThemeProvider>
   </React.StrictMode>
 );
