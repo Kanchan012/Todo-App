@@ -1,5 +1,5 @@
 import TodoForm from "./components/TodoForm";
-import { TodoProvider } from "./context/TodoContext";
+import { TodoProvider } from "./context/TodoProvider";
 
 export default function App() {
   return (
