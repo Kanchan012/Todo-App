@@ -1,32 +1,35 @@
 import React, { useState } from "react";
-import { useTodos } from "../context/TodoContext";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../redux/todoSlice";
 import type { Priority } from "../types/todo";
 import Input from "./ui/Input";
 import Select from "./ui/Select";
 import Button from "./ui/Button";
 
 const TodoForm: React.FC = () => {
-  const { addTodo } = useTodos();
+  const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [priority, setPriority] = useState<Priority>("low");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim()) return;
-    addTodo(title, priority);
+
+    dispatch(addTodo({ title, priority }));
+
     setTitle("");
     setPriority("low");
   };
 
   return (
-    <form className="todo-form" onSubmit={handleSubmit}>
+    <form className="todo-form flex gap-2 items-center" onSubmit={handleSubmit}>
       <Input
         type="text"
         placeholder="Enter task..."
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-     <Select
+      <Select
         value={priority}
         onChange={(e) => setPriority(e.target.value as Priority)}
         options={[
@@ -35,7 +38,6 @@ const TodoForm: React.FC = () => {
           { value: "high", label: "High Priority" },
         ]}
       />
-
       <Button type="submit">Add Task</Button>
     </form>
   );
