@@ -1,32 +1,19 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import type { RootState } from "../redux/store";
-import { toggleTodo, deleteTodo } from "../redux/todoSlice";
+import TodoItem from "../components/TodoItem";
 
 const AllTasks = () => {
   const todos = useSelector((state: RootState) => state.todos.todos);
-  const dispatch = useDispatch();
 
   return (
-    <div className="page">
-      <h2>All Tasks</h2>
-
+    <div className="page p-4">
+      <h2 className="text-xl font-bold mb-2">All Tasks</h2>
       {todos.length === 0 ? (
         <p>No tasks yet</p>
       ) : (
         <ul>
           {todos.map((todo) => (
-            <li key={todo.id}>
-              <strong>{todo.title}</strong> — {todo.priority} —{" "}
-              {todo.completed ? "Completed" : "Pending"}
-
-              <button onClick={() => dispatch(toggleTodo(todo.id))}>
-                Toggle
-              </button>
-
-              <button onClick={() => dispatch(deleteTodo(todo.id))}>
-                Delete
-              </button>
-            </li>
+            <TodoItem key={todo.id} todo={todo} />
           ))}
         </ul>
       )}
