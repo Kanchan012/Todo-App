@@ -8,7 +8,8 @@ import AllTasks from "./pages/AllTasks";
 import CompletedTasks from "./pages/CompletedTasks";
 import IncompleteTasks from "./pages/IncompleteTasks";
 import "./index.css";
-
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 const router = createBrowserRouter([
   {
     element: <App />,
@@ -22,10 +23,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+    <Provider store={store}>
     <ThemeProvider>
       <TodoProvider>
         <RouterProvider router={router} />
       </TodoProvider>
     </ThemeProvider>
+     </Provider>
   </React.StrictMode>
 );
