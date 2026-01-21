@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTodo } from "../redux/todoSlice";
+import { toast } from "react-toastify";
 import type { Priority } from "../types/todo";
 import Input from "./ui/Input";
 import Select from "./ui/Select";
@@ -16,19 +17,21 @@ const TodoForm: React.FC = () => {
     if (!title.trim()) return;
 
     dispatch(addTodo({ title, priority }));
+    toast.success("Task added!");
 
     setTitle("");
     setPriority("low");
   };
 
   return (
-    <form className="todo-form flex gap-2 items-center" onSubmit={handleSubmit}>
+    <form className="todo-form" onSubmit={handleSubmit}>
       <Input
         type="text"
         placeholder="Enter task..."
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+
       <Select
         value={priority}
         onChange={(e) => setPriority(e.target.value as Priority)}
@@ -38,6 +41,7 @@ const TodoForm: React.FC = () => {
           { value: "high", label: "High Priority" },
         ]}
       />
+
       <Button type="submit">Add Task</Button>
     </form>
   );

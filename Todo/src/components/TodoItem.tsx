@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toggleTodo, deleteTodo, updateTodo } from "../redux/todoSlice";
+import { toast } from "react-toastify";
 import type { Todo, Priority } from "../types/todo";
 import Input from "./ui/Input";
 import Select from "./ui/Select";
@@ -18,22 +19,25 @@ const TodoItem: React.FC<Props> = ({ todo }) => {
 
   const handleUpdate = () => {
     if (editTitle.trim()) {
-      dispatch(
-        updateTodo({ id: todo.id, title: editTitle, priority: editPriority })
-      );
+      dispatch(updateTodo({ id: todo.id, title: editTitle, priority: editPriority }));
+      toast.info("Task updated! ");
       setIsEditing(false);
     }
   };
 
-  const handleCancel = () => {
-    setEditTitle(todo.title);
-    setEditPriority(todo.priority);
-    setIsEditing(false);
+  const handleDelete = () => {
+    dispatch(deleteTodo(todo.id));
+    toast.error("Task deleted! ");
+  };
+
+  const handleToggle = () => {
+    dispatch(toggleTodo(todo.id));
+    toast.success(todo.completed ? "Marked incomplete!" : "Task completed! ✅");
   };
 
   if (isEditing) {
     return (
-      <div className="todo-item flex gap-2 items-center mb-2">
+      <div className="todo-item">
         <Input
           value={editTitle}
           onChange={(e) => setEditTitle(e.target.value)}
@@ -51,7 +55,7 @@ const TodoItem: React.FC<Props> = ({ todo }) => {
         />
 
         <Button onClick={handleUpdate}>Update</Button>
-        <Button variant="secondary" onClick={handleCancel}>
+        <Button variant="secondary" onClick={() => setIsEditing(false)}>
           Cancel
         </Button>
       </div>
@@ -59,30 +63,23 @@ const TodoItem: React.FC<Props> = ({ todo }) => {
   }
 
   return (
-    <div
-      className={`todo-item flex justify-between items-center p-2 border-b ${
-        todo.completed ? "line-through text-gray-400" : ""
-      }`}
-    >
-      <div className="flex items-center gap-2">
+    <div className={`todo-item ${todo.completed ? "completed" : ""}`}>
+      <div className={`title priority-${todo.priority}`}>
         <input
           type="checkbox"
           checked={todo.completed}
-          onChange={() => dispatch(toggleTodo(todo.id))}
+          onChange={handleToggle}
         />
-        <span>
-          {todo.title} ({todo.priority})
-        </span>
+        {todo.title}
       </div>
 
-      <div className="flex gap-2">
-        <Button variant="secondary" onClick={() => setIsEditing(true)}>
-          Edit
-        </Button>
-        <Button variant="danger" onClick={() => dispatch(deleteTodo(todo.id))}>
-          Delete
-        </Button>
-      </div>
+      <Button variant="secondary" onClick={() => setIsEditing(true)}>
+        Edit
+      </Button>
+
+      <Button variant="danger" onClick={handleDelete}>
+        Delete
+      </Button>
     </div>
   );
 };

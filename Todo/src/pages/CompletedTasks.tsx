@@ -1,19 +1,27 @@
 import React from "react";
-import { useTodos } from "../context/TodoContext";
+import { useSelector } from "react-redux";
+import type { RootState } from "../redux/store";
 import TodoItem from "../components/TodoItem";
 
-const CompletedTasks: React.FC = () => {
-  const { todos } = useTodos();
-  const completed = todos.filter(todo => todo.completed);
+const CompletedTasks = () => {
+  const todos = useSelector((state: RootState) =>
+    state.todos.todos.filter((t) => t.completed)
+  );
 
   return (
-    <div className="todo-list">
-      {completed.length === 0 ? (
-        <p>No completed tasks</p>
+    <div className="page p-4">
+      <h2 className="text-xl font-bold mb-2">Completed Tasks</h2>
+      {todos.length === 0 ? (
+        <p>No completed tasks yet</p>
       ) : (
-        completed.map((todo) => <TodoItem key={todo.id} todo={todo} />)
+        <ul>
+          {todos.map((todo) => (
+            <TodoItem key={todo.id} todo={todo} />
+          ))}
+        </ul>
       )}
     </div>
   );
-}
+};
+
 export default CompletedTasks;
