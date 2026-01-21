@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import type { Todo, Priority } from "../types/todo";
 import { useTodos } from "../context/TodoContext";
+import Input from "./ui/Input";
+import Select from "./ui/Select";
+import Button from "./ui/Button";
 
 interface Props {
   todo: Todo;
@@ -27,26 +30,27 @@ const TodoItem: React.FC<Props> = ({ todo }) => {
 
   if (isEditing) {
     return (
-      <div className={`todo-item ${todo.completed ? "completed" : ""}`}>
-        <div className="edit-form">
-          <input
-            type="text"
-            value={editTitle}
-            onChange={(e) => setEditTitle(e.target.value)}
-            placeholder="Edit task"
-            autoFocus
-          />
-          <select
-            value={editPriority}
-            onChange={(e) => setEditPriority(e.target.value as Priority)}
-          >
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-          <button onClick={handleUpdate} className="btn-update">Update</button>
-          <button onClick={handleCancel} className="btn-cancel">Cancel</button>
-        </div>
+      <div className="todo-item">
+        <Input
+          value={editTitle}
+          onChange={(e) => setEditTitle(e.target.value)}
+          autoFocus
+        />
+
+        <Select
+          value={editPriority}
+          onChange={(e) => setEditPriority(e.target.value as Priority)}
+          options={[
+            { value: "low", label: "Low" },
+            { value: "medium", label: "Medium" },
+            { value: "high", label: "High" },
+          ]}
+        />
+
+        <Button onClick={handleUpdate}>Update</Button>
+        <Button variant="secondary" onClick={handleCancel}>
+          Cancel
+        </Button>
       </div>
     );
   }
@@ -61,8 +65,14 @@ const TodoItem: React.FC<Props> = ({ todo }) => {
         />
         {todo.title}
       </div>
-      <button onClick={() => setIsEditing(true)} className="btn-edit">Edit</button>
-      <button onClick={() => deleteTodo(todo.id)} className="btn-delete">Delete</button>
+
+      <Button variant="secondary" onClick={() => setIsEditing(true)}>
+        Edit
+      </Button>
+
+      <Button variant="danger" onClick={() => deleteTodo(todo.id)}>
+        Delete
+      </Button>
     </div>
   );
 };
