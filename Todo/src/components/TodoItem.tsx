@@ -32,7 +32,7 @@ const TodoItem: React.FC<Props> = ({ todo }) => {
 
   const handleToggle = () => {
     dispatch(toggleTodo(todo.id));
-    toast.success(todo.completed ? "Marked incomplete!" : "Task completed! ✅");
+    toast.success(todo.completed ? "Marked incomplete!" : "Task completed! ");
   };
 
   if (isEditing) {
