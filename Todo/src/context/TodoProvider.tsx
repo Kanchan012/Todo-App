@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { TodoContext } from "../context/TodoContext"
+import { TodoContext } from "./TodoContext";
 import type { Todo, Priority } from "../types/todo";
+import { toast } from "react-toastify";
 
 export function TodoProvider({ children }: { children: React.ReactNode }) {
   const [todos, setTodos] = useState<Todo[]>(() => {
@@ -17,6 +18,7 @@ export function TodoProvider({ children }: { children: React.ReactNode }) {
       ...prev,
       { id: Date.now(), title, completed: false, priority },
     ]);
+    toast.success("Task added successfully ✅");
   };
 
   const toggleTodo = (id: number) => {
@@ -30,6 +32,7 @@ export function TodoProvider({ children }: { children: React.ReactNode }) {
   const deleteTodo = (id: number) => {
     if (window.confirm("Delete this task?")) {
       setTodos(prev => prev.filter(t => t.id !== id));
+      toast.error("Task deleted 🗑");
     }
   };
 
@@ -39,6 +42,7 @@ export function TodoProvider({ children }: { children: React.ReactNode }) {
         t.id === id ? { ...t, title, priority } : t
       )
     );
+    toast.info("Task updated ✏");
   };
 
   return (
