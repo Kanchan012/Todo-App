@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { toggleTodo, deleteTodo, updateTodo } from "../redux/todoSlice";
 import type { Todo, Priority } from "../types/todo";
-import { useTodos } from "../context/TodoContext";
 import Input from "./ui/Input";
 import Select from "./ui/Select";
 import Button from "./ui/Button";
@@ -10,14 +11,16 @@ interface Props {
 }
 
 const TodoItem: React.FC<Props> = ({ todo }) => {
-  const { toggleTodo, deleteTodo, updateTodo } = useTodos();
+  const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(todo.title);
   const [editPriority, setEditPriority] = useState<Priority>(todo.priority);
 
   const handleUpdate = () => {
     if (editTitle.trim()) {
-      updateTodo(todo.id, editTitle, editPriority);
+      dispatch(
+        updateTodo({ id: todo.id, title: editTitle, priority: editPriority })
+      );
       setIsEditing(false);
     }
   };
@@ -30,7 +33,7 @@ const TodoItem: React.FC<Props> = ({ todo }) => {
 
   if (isEditing) {
     return (
-      <div className="todo-item">
+      <div className="todo-item flex gap-2 items-center mb-2">
         <Input
           value={editTitle}
           onChange={(e) => setEditTitle(e.target.value)}
@@ -56,23 +59,30 @@ const TodoItem: React.FC<Props> = ({ todo }) => {
   }
 
   return (
-    <div className={`todo-item ${todo.completed ? "completed" : ""}`}>
-      <div className={`title priority-${todo.priority}`}>
+    <div
+      className={`todo-item flex justify-between items-center p-2 border-b ${
+        todo.completed ? "line-through text-gray-400" : ""
+      }`}
+    >
+      <div className="flex items-center gap-2">
         <input
           type="checkbox"
           checked={todo.completed}
-          onChange={() => toggleTodo(todo.id)}
+          onChange={() => dispatch(toggleTodo(todo.id))}
         />
-        {todo.title}
+        <span>
+          {todo.title} ({todo.priority})
+        </span>
       </div>
 
-      <Button variant="secondary" onClick={() => setIsEditing(true)}>
-        Edit
-      </Button>
-
-      <Button variant="danger" onClick={() => deleteTodo(todo.id)}>
-        Delete
-      </Button>
+      <div className="flex gap-2">
+        <Button variant="secondary" onClick={() => setIsEditing(true)}>
+          Edit
+        </Button>
+        <Button variant="danger" onClick={() => dispatch(deleteTodo(todo.id))}>
+          Delete
+        </Button>
+      </div>
     </div>
   );
 };

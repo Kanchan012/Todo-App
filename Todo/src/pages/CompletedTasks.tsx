@@ -4,7 +4,7 @@ import TodoItem from "../components/TodoItem";
 
 const CompletedTasks: React.FC = () => {
   const { todos } = useTodos();
-  const completed = todos.filter(t => t.completed);
+  const completed = todos.filter(todo => todo.completed);
 
   return (
     <div className="todo-list">
