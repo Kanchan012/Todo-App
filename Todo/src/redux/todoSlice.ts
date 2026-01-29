@@ -16,18 +16,24 @@ const todoSlice = createSlice({
   reducers: {
     addTodo: (
       state,
-      action: PayloadAction<{ title: string; priority: Priority }>
+      action: PayloadAction<{
+        title: string;
+        priority: Priority;
+        dueDate?: string;
+      }>
     ) => {
       state.todos.push({
         id: Date.now(),
         title: action.payload.title,
         priority: action.payload.priority,
+        dueDate: action.payload.dueDate,
         completed: false,
+        createdAt: new Date().toISOString(),
       });
     },
-
+    
     toggleTodo: (state, action: PayloadAction<number>) => {
-      const todo = state.todos.find(t => t.id === action.payload);
+      const todo = state.todos.find((t) => t.id === action.payload);
       if (todo) todo.completed = !todo.completed;
     },
 
@@ -41,12 +47,15 @@ const todoSlice = createSlice({
         id: number;
         title: string;
         priority: Priority;
+        dueDate?: string;
       }>
     ) => {
-      const todo = state.todos.find(t => t.id === action.payload.id);
+      const todo = state.todos.find((t) => t.id === action.payload.id);
       if (todo) {
         todo.title = action.payload.title;
         todo.priority = action.payload.priority;
+        todo.dueDate = action.payload.dueDate;
+
       }
     },
   },
