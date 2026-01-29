@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toggleTodo, deleteTodo, updateTodo } from "../redux/todoSlice";
 import { toast } from "react-toastify";
+import { isOverdue } from "../utils/date";
 import type { Todo, Priority } from "../types/todo";
 import Input from "./ui/Input";
 import Select from "./ui/Select";
@@ -13,31 +14,43 @@ interface Props {
 
 const TodoItem: React.FC<Props> = ({ todo }) => {
   const dispatch = useDispatch();
+
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(todo.title);
   const [editPriority, setEditPriority] = useState<Priority>(todo.priority);
 
+  const overdue = isOverdue(todo.dueDate, todo.completed);
+
   const handleUpdate = () => {
-    if (editTitle.trim()) {
-      dispatch(updateTodo({ id: todo.id, title: editTitle, priority: editPriority }));
-      toast.info("Task updated! ");
-      setIsEditing(false);
-    }
+    if (!editTitle.trim()) return;
+
+    dispatch(
+      updateTodo({
+        id: todo.id,
+        title: editTitle,
+        priority: editPriority,
+        dueDate: todo.dueDate,
+      })
+    );
+
+    toast.info("Task updated!");
+    setIsEditing(false);
   };
 
   const handleDelete = () => {
     dispatch(deleteTodo(todo.id));
-    toast.error("Task deleted! ");
+    toast.error("Task deleted!");
   };
 
   const handleToggle = () => {
     dispatch(toggleTodo(todo.id));
-    toast.success(todo.completed ? "Marked incomplete!" : "Task completed! ");
+    toast.success(
+      todo.completed ? "Marked incomplete!" : "Task completed!"
+    );
   };
-
   if (isEditing) {
     return (
-      <div className="todo-item">
+      <div className="todo-item edit-form">
         <Input
           value={editTitle}
           onChange={(e) => setEditTitle(e.target.value)}
@@ -63,14 +76,29 @@ const TodoItem: React.FC<Props> = ({ todo }) => {
   }
 
   return (
-    <div className={`todo-item ${todo.completed ? "completed" : ""}`}>
+    <div
+      className={`todo-item 
+        ${todo.completed ? "completed" : ""} 
+        ${overdue ? "overdue" : ""}`}
+    >
       <div className={`title priority-${todo.priority}`}>
         <input
           type="checkbox"
           checked={todo.completed}
           onChange={handleToggle}
         />
-        {todo.title}
+
+        <span>{todo.title}</span>
+        {todo.dueDate && (
+          <span className="text-sm text-gray-500">
+            {todo.dueDate}
+          </span>
+        )}
+        {overdue && (
+          <span className="text-xs text-red-600 font-bold">
+            Overdue
+          </span>
+        )}
       </div>
 
       <Button variant="secondary" onClick={() => setIsEditing(true)}>
