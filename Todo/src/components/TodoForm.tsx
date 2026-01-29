@@ -10,17 +10,18 @@ import Button from "./ui/Button";
 const TodoForm: React.FC = () => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
-  const [priority, setPriority] = useState<Priority>("low");
+  const [priority, setPriority] =useState<Priority>("low");
+  const [dueDate, setDueDate] = useState("")
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim()) return;
 
-    dispatch(addTodo({ title, priority }));
+    dispatch(addTodo({ title, priority,dueDate }));
     toast.success("Task added!");
-
     setTitle("");
     setPriority("low");
+    setDueDate("");
   };
 
   return (
@@ -31,7 +32,11 @@ const TodoForm: React.FC = () => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
-
+       <Input
+        type="date"
+        value={dueDate}
+        onChange={(e) => setDueDate(e.target.value)}
+      />
       <Select
         value={priority}
         onChange={(e) => setPriority(e.target.value as Priority)}
