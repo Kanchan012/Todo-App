@@ -12,16 +12,18 @@ const TodoForm: React.FC = () => {
   const [title, setTitle] = useState("");
   const [priority, setPriority] =useState<Priority>("low");
   const [dueDate, setDueDate] = useState("")
+  const [reminderTime, setReminderTime] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim()) return;
 
-    dispatch(addTodo({ title, priority,dueDate }));
+    dispatch(addTodo({ title, priority, dueDate, reminderTime }));
     toast.success("Task added!");
     setTitle("");
     setPriority("low");
     setDueDate("");
+    setReminderTime("");
   };
 
   return (
@@ -36,6 +38,13 @@ const TodoForm: React.FC = () => {
         type="date"
         value={dueDate}
         onChange={(e) => setDueDate(e.target.value)}
+      />
+      <Input
+        type="time"
+        placeholder="Reminder time"
+        value={reminderTime}
+        onChange={(e) => setReminderTime(e.target.value)}
+        title="Set a reminder time for this task"
       />
       <Select
         value={priority}

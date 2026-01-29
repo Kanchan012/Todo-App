@@ -7,7 +7,6 @@ import type { Todo, Priority } from "../types/todo";
 import Input from "./ui/Input";
 import Select from "./ui/Select";
 import Button from "./ui/Button";
-
 interface Props {
   todo: Todo;
 }
@@ -18,6 +17,7 @@ const TodoItem: React.FC<Props> = ({ todo }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(todo.title);
   const [editPriority, setEditPriority] = useState<Priority>(todo.priority);
+  const [editReminderTime, setEditReminderTime] = useState(todo.reminderTime || "");
 
   const overdue = isOverdue(todo.dueDate, todo.completed);
 
@@ -30,6 +30,7 @@ const TodoItem: React.FC<Props> = ({ todo }) => {
         title: editTitle,
         priority: editPriority,
         dueDate: todo.dueDate,
+        reminderTime: editReminderTime,
       })
     );
 
@@ -55,6 +56,13 @@ const TodoItem: React.FC<Props> = ({ todo }) => {
           value={editTitle}
           onChange={(e) => setEditTitle(e.target.value)}
           autoFocus
+        />
+
+        <Input
+          type="time"
+          value={editReminderTime}
+          onChange={(e) => setEditReminderTime(e.target.value)}
+          placeholder="Reminder time"
         />
 
         <Select
@@ -92,6 +100,11 @@ const TodoItem: React.FC<Props> = ({ todo }) => {
         {todo.dueDate && (
           <span className="text-sm text-gray-500">
             {todo.dueDate}
+          </span>
+        )}
+        {todo.reminderTime && (
+          <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">
+            Reminder Time: {todo.reminderTime}
           </span>
         )}
         {overdue && (

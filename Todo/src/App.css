@@ -2,12 +2,12 @@
   min-height: 100vh;
 }
 
-/* ===== Todo Item Styling ===== */
 .todo-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  width: 100%;
   padding: 1.5rem;
   background: white;
   border-radius: 12px;
@@ -43,7 +43,6 @@
   color: #999;
 }
 
-/* ===== Title Section ===== */
 .title {
   display: flex;
   align-items: center;
@@ -64,7 +63,6 @@
   transform: scale(1.1);
 }
 
-/* ===== Priority Colors ===== */
 .priority-high {
   color: #ff6b6b;
   font-weight: 600;
@@ -79,8 +77,6 @@
   color: #51cf66;
   font-weight: 600;
 }
-
-/* ===== Button Styling ===== */
 .btn-edit,
 .btn-delete,
 .btn-update,
@@ -139,7 +135,6 @@
   box-shadow: 0 4px 12px rgba(108, 117, 125, 0.4);
 }
 
-/* ===== Edit Form ===== */
 .edit-form {
   display: flex;
   gap: 0.75rem;
@@ -174,7 +169,6 @@
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-/* ===== Dark Mode Support ===== */
 [data-theme="dark"] .todo-item {
   background: #2a2a2a;
   color: #f0f0f0;
@@ -196,7 +190,6 @@
   border-color: #444;
 }
 
-/* ===== Responsive Design ===== */
 @media (max-width: 768px) {
   .todo-item {
     flex-wrap: wrap;
@@ -257,7 +250,6 @@
   }
 }
 
-/* ===== Empty State ===== */
 .empty-state {
   text-align: center;
   padding: 3rem 2rem;
@@ -269,13 +261,11 @@
   margin-bottom: 0.5rem;
 }
 
-/* ===== Loading State ===== */
 .loading {
   opacity: 0.6;
   pointer-events: none;
 }
 
-/* ===== Animation Classes ===== */
 @keyframes fadeIn {
   from {
     opacity: 0;

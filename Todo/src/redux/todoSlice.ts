@@ -20,6 +20,7 @@ const todoSlice = createSlice({
         title: string;
         priority: Priority;
         dueDate?: string;
+        reminderTime?: string;
       }>
     ) => {
       state.todos.push({
@@ -27,11 +28,14 @@ const todoSlice = createSlice({
         title: action.payload.title,
         priority: action.payload.priority,
         dueDate: action.payload.dueDate,
+        reminderTime: action.payload.reminderTime,
+        reminderEnabled: !!action.payload.reminderTime,
+        reminderSent: false,
         completed: false,
         createdAt: new Date().toISOString(),
       });
     },
-    
+
     toggleTodo: (state, action: PayloadAction<number>) => {
       const todo = state.todos.find((t) => t.id === action.payload);
       if (todo) todo.completed = !todo.completed;
@@ -41,6 +45,11 @@ const todoSlice = createSlice({
       state.todos = state.todos.filter(t => t.id !== action.payload);
     },
 
+    markReminderSent: (state, action: PayloadAction<number>) => {
+      const todo = state.todos.find((t) => t.id === action.payload);
+      if (todo) todo.reminderSent = true;
+    },
+
     updateTodo: (
       state,
       action: PayloadAction<{
@@ -48,6 +57,7 @@ const todoSlice = createSlice({
         title: string;
         priority: Priority;
         dueDate?: string;
+        reminderTime?: string;
       }>
     ) => {
       const todo = state.todos.find((t) => t.id === action.payload.id);
@@ -55,7 +65,9 @@ const todoSlice = createSlice({
         todo.title = action.payload.title;
         todo.priority = action.payload.priority;
         todo.dueDate = action.payload.dueDate;
-
+        todo.reminderTime = action.payload.reminderTime;
+        todo.reminderEnabled = !!action.payload.reminderTime;
+        todo.reminderSent = false;
       }
     },
   },
@@ -66,6 +78,7 @@ export const {
   toggleTodo,
   deleteTodo,
   updateTodo,
+  markReminderSent,
 } = todoSlice.actions;
 
 export default todoSlice.reducer;
