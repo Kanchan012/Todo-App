@@ -13,6 +13,10 @@ interface Props {
 
 const TodoItem: React.FC<Props> = ({ todo }) => {
   const dispatch = useDispatch();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7214f8db4e87e31babce0ffe0fc8601a43579797
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(todo.title);
   const [editPriority, setEditPriority] = useState<Priority>(todo.priority);

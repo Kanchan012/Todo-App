@@ -12,10 +12,20 @@ export function TodoProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
+<<<<<<< HEAD
   
   const addTodo = (title: string, priority: Priority) => {
     setTodos(prev => [...prev,{ id: Date.now(),title,completed: false, priority },]);
     toast.success("Task added successfully");                                         
+=======
+
+  const addTodo = (title: string, priority: Priority) => {
+    setTodos(prev => [
+      ...prev,
+      { id: Date.now(), title, completed: false, priority },
+    ]);
+    toast.success("Task added successfully ✅");
+>>>>>>> 7214f8db4e87e31babce0ffe0fc8601a43579797
   };
 
   const toggleTodo = (id: number) => {
@@ -29,7 +39,11 @@ export function TodoProvider({ children }: { children: React.ReactNode }) {
   const deleteTodo = (id: number) => {
     if (window.confirm("Delete this task?")) {
       setTodos(prev => prev.filter(t => t.id !== id));
+<<<<<<< HEAD
       toast.error("Task deleted ");
+=======
+      toast.error("Task deleted 🗑");
+>>>>>>> 7214f8db4e87e31babce0ffe0fc8601a43579797
     }
   };
 
@@ -39,7 +53,11 @@ export function TodoProvider({ children }: { children: React.ReactNode }) {
         t.id === id ? { ...t, title, priority } : t
       )
     );
+<<<<<<< HEAD
     toast.info("Task updated");
+=======
+    toast.info("Task updated ✏");
+>>>>>>> 7214f8db4e87e31babce0ffe0fc8601a43579797
   };
 
   return (

@@ -12,7 +12,11 @@ export default function useReminders() {
       Notification.requestPermission();
     }
     const interval = setInterval(() => {
+<<<<<<< HEAD
       const now = new Date(); 
+=======
+      const now = new Date();
+>>>>>>> 7214f8db4e87e31babce0ffe0fc8601a43579797
       const currentTime = now.toTimeString().slice(0, 5); 
 
       todos.forEach((todo) => {
