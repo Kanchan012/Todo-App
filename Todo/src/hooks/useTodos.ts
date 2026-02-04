@@ -7,10 +7,6 @@ type Filter = "all" | "completed" | "incomplete";
 
 export default function useTodos(filter: Filter = "all") {
   const all = useSelector((state: RootState) => state.todos.todos as Todo[]);
-<<<<<<< HEAD
-=======
-
->>>>>>> 7214f8db4e87e31babce0ffe0fc8601a43579797
   const counts = useMemo(() => {
     const total = all.length;
     const completed = all.filter((t) => t.completed).length;

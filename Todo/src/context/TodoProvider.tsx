@@ -9,24 +9,25 @@ export function TodoProvider({ children }: { children: React.ReactNode }) {
     return stored ? (JSON.parse(stored) as Todo[]) : [];
   });
 
+  const createTodo = (title: string, priority: Priority): Todo => ({
+  id: Date.now(),
+  title,
+  completed: false,
+  priority,
+  reminderEnabled: false,
+  reminderSent: false,
+  createdAt: Date(),
+});
+
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
-<<<<<<< HEAD
-  
-  const addTodo = (title: string, priority: Priority) => {
-    setTodos(prev => [...prev,{ id: Date.now(),title,completed: false, priority },]);
-    toast.success("Task added successfully");                                         
-=======
 
-  const addTodo = (title: string, priority: Priority) => {
-    setTodos(prev => [
-      ...prev,
-      { id: Date.now(), title, completed: false, priority },
-    ]);
-    toast.success("Task added successfully ✅");
->>>>>>> 7214f8db4e87e31babce0ffe0fc8601a43579797
-  };
+const addTodo = (title: string, priority: Priority) => {
+  setTodos(prev => [...prev, createTodo(title, priority)]);
+  toast.success("Task added successfully");
+};
+
 
   const toggleTodo = (id: number) => {
     setTodos(prev =>
@@ -39,11 +40,7 @@ export function TodoProvider({ children }: { children: React.ReactNode }) {
   const deleteTodo = (id: number) => {
     if (window.confirm("Delete this task?")) {
       setTodos(prev => prev.filter(t => t.id !== id));
-<<<<<<< HEAD
-      toast.error("Task deleted ");
-=======
       toast.error("Task deleted 🗑");
->>>>>>> 7214f8db4e87e31babce0ffe0fc8601a43579797
     }
   };
 
@@ -53,11 +50,7 @@ export function TodoProvider({ children }: { children: React.ReactNode }) {
         t.id === id ? { ...t, title, priority } : t
       )
     );
-<<<<<<< HEAD
-    toast.info("Task updated");
-=======
     toast.info("Task updated ✏");
->>>>>>> 7214f8db4e87e31babce0ffe0fc8601a43579797
   };
 
   return (
